@@ -21,6 +21,9 @@ questionnaireArray.push({ question: "When are you planning to arrive",
 questionnaireArray.push({ question: "The sauna and hot tub are heating up. Did you remember to bring your towel?", 
                         answers: [{name: "Yes", value: 1}, {name: "No", value: 1}, {name: "Maybe", value: 1}]
                       })
+questionnaireArray.push({ question: "test", 
+                        answers: [{name: "a", value: 0}, {name: "b", value: 0}, {name: "c", value: 0}]
+                      })
 var questionnaireMap = new Map()
 questionnaireMap.set("We are choosing CDs for tonights karaoke. Which are you more into?", {"Rock": 30, "Dance": 4})
 questionnaireMap.set("When are you planning to arrive", {"early": 5, "a bit later": 7})
@@ -54,20 +57,30 @@ app.post('/question', function(req, res) {
 })
 
 app.post('/results', function(req, res) {
-    console.log("request body: " + req)
+    console.log("request body: " , req)
     var {message, option} = req.body
-    console.log("received message: " + message)
-    console.log("received option: " + option)
+    console.log("received message: ", message)
+    console.log("received option: ", option)
     var resultObject = searchQuestion(message, questionnaireArray)
-    console.log(resultObject.toString())
+    console.log(resultObject)
     var answers = resultObject.answers
     console.log(answers)
     var resultAnswer = searchAnswer(option, answers)
     console.log(resultAnswer)
     resultAnswer.value = resultAnswer.value + 1
-    answers[resultAnswer] = resultAnswer
-    resultObject.answers = answers
-    questionnaireArray[resultObject] = resultObject
+    var tempArray = questionnaireArray.map(questionnaire => {
+        if (questionnaire.question === message) {
+            questionnaire.answers = questionnaire.answers.map(answer => {
+                if (answer.name === option) {
+                    answer.value = answer.value + 1
+                }
+                return answer
+            })
+        }
+        return questionnaire
+    })
+    console.log(JSON.stringify(tempArray))
+    questionnaireArray = tempArray
     /*
     var values = questionnaireMap.get(message)
     if (values == undefined) {
@@ -93,6 +106,7 @@ app.get('/results', function(req, res) {
 
 function searchQuestion(nameKey, myArray){
     for (var i=0; i < myArray.length; i++) {
+        console.log(myArray[i].question)
         if (myArray[i].question === nameKey) {
             return myArray[i];
         }
