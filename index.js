@@ -34,12 +34,10 @@ app.get('/', function(req, res) {
 app.post('/question', function(req, res) {
     console.log("form post called")
     var tempAnswers = []
-    console.log(req.body)
     req.body.options.forEach(option => {
         tempAnswers.push({name: option, value: 0})
     })
     questionnaireArray.push({question: req.body.message, answers: tempAnswers})
-    console.log("questionnaire array: " + questionnaireArray)
     axios({
         method:'put',
         url:'https://rr0c0nebe8.execute-api.eu-west-1.amazonaws.com/dev/webhook',
@@ -57,13 +55,15 @@ app.post('/question', function(req, res) {
 
 app.post('/results', function(req, res) {
     console.log("request body: " + req)
-    var message = req.body.message
-    var option = req.body.option
+    var {message, option} = req.body
     console.log("received message: " + message)
-    console.log("received option: " + message)
+    console.log("received option: " + option)
     var resultObject = searchQuestion(message, questionnaireArray)
+    console.log(resultObject.toString())
     var answers = resultObject.answers
+    console.log(answers)
     var resultAnswer = searchAnswer(option, answers)
+    console.log(resultAnswer)
     resultAnswer.value = resultAnswer.value + 1
     answers[resultAnswer] = resultAnswer
     resultObject.answers = answers
