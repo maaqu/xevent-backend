@@ -8,7 +8,10 @@ var path = require('path');
 var axios = require('axios');
 
 var questionnaireMap = new Map();
-questionnaireMap.set("How do you wish to arrive?", { "yes": 1, "maybe": 0, "no": 0 });
+questionnaireMap.set("We are choosing CDs for tonights karaoke. Which are you more into?", { "Rock": 30, "Dance": 4 });
+questionnaireMap.set("When are you planning to arrive", { "early": 5, "a bit later": 7 });
+questionnaireMap.set("Do you prefer soda or beer?", { "beer": 13, "soda": 2 });
+questionnaireMap.set("The sauna and hot tub are heating up. Did you remember to bring your towel?", { "yes": 1, "maybe": 1, "no": 1 });
 // viewed at http://localhost:8080
 app.get('/', function (req, res) {
     res.send("ayylmao");
@@ -58,6 +61,10 @@ app.get('/results', function (req, res) {
 
 app.get('/clearstate', function (req, res) {
     questionnaireMap.clear();
+    questionnaireMap.set("We are choosing CDs for tonights karaoke. Which are you more into?", { "Rock": 30, "Dance": 4 });
+    questionnaireMap.set("When are you planning to arrive", { "early": 5, "a bit later": 7 });
+    questionnaireMap.set("Do you prefer soda or beer?", { "beer": 13, "soda": 2 });
+    questionnaireMap.set("The sauna and hot tub are heating up. Did you remember to bring your towel?", { "yes": 1, "maybe": 1, "no": 1 });
     res.send(200);
 });
 

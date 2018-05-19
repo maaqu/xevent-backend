@@ -13,7 +13,7 @@ app.get('/', function(req, res) {
     res.send("ayylmao")
 });
 
-app.post('/form_post', function(req, res) {
+app.post('/question', function(req, res) {
     console.log("form post called")
     const options = map(req.body)
     axios({
@@ -22,7 +22,7 @@ app.post('/form_post', function(req, res) {
         responseType:'json',
         contentType: 'application/json',
         data: { message: req.body.message,
-                options: ["a", "b", "c"]
+                options: req.body.options
               }
       })
         .then(function(response) {
@@ -32,26 +32,24 @@ app.post('/form_post', function(req, res) {
 })
 
 app.post('/results', function(req, res) {
-    questionnaireMap
+    var message = req.body.message
+    console.log("received message: " + message)
+    var values = questionnaireMap.get(message)
+    if (values == undefined) {
+        questionnaireMap.set(message, {})
+        values = {}
+    }
+    var selection = req.body.option
+    if (selection in values) {
+        values[selection] = values[selection] + 1
+    } else {
+        values[selection] = 1
+    }
+    questionnaireMap.set(message, values)
     res.send(200)
 })
 
 app.get('/results', function(req, res) {
-    var testArray = ["yes", "maybe", "no"]
-    var values = questionnaireMap.get("How do you wish to arrive?")
-    if (values == undefined) {
-        questionnaireMap.set("How do you wish to arrive?", {})
-        values = {}
-    }
-    var testAnswer = testArray[parseInt(Math.random()*3)]
-    console.log("testanswer:" + testAnswer)
-    if (testAnswer in values) {
-        values[testAnswer] = values[testAnswer] + 1
-    } else {
-        console.log(questionnaireMap)
-        values[testAnswer] = 1
-    }
-    questionnaireMap.set("How do you wish to arrive?", values)
     console.log(questionnaireMap)
     res.send(JSON.stringify([...questionnaireMap]))
 })
