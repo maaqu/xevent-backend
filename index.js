@@ -34,6 +34,7 @@ app.get('/', function(req, res) {
 app.post('/question', function(req, res) {
     console.log("form post called")
     var tempAnswers = []
+    console.log("req", req)
     console.log("req.body:", req.body)
     req.body.options.forEach(option => {
         tempAnswers.push({name: option, value: 0})
@@ -59,13 +60,14 @@ app.post('/results', function(req, res) {
     var {message, option} = req.body
     console.log("received message: ", message)
     console.log("received option: ", option)
-    var resultObject = searchQuestion(message, questionnaireArray)
+    /*var resultObject = searchQuestion(message, questionnaireArray)
     console.log(resultObject)
     var answers = resultObject.answers
     console.log(answers)
     var resultAnswer = searchAnswer(option, answers)
     console.log(resultAnswer)
     resultAnswer.value = resultAnswer.value + 1
+    */
     var tempArray = questionnaireArray.map(questionnaire => {
         if (questionnaire.question === message) {
             questionnaire.answers = questionnaire.answers.map(answer => {
