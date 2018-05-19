@@ -2,6 +2,10 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var axios = require('axios')
+const cors = require('cors')
+
+app.use(cors())
+
 
 var questionnaireMap = new Map()
 questionnaireMap.set("We are choosing CDs for tonights karaoke. Which are you more into?", {"Rock": 30, "Dance": 4})
@@ -14,8 +18,8 @@ app.get('/', function(req, res) {
 });
 
 app.post('/question', function(req, res) {
+    res.send()
     console.log("form post called")
-    const options = map(req.body)
     axios({
         method:'put',
         url:'https://rr0c0nebe8.execute-api.eu-west-1.amazonaws.com/dev/webhook',
@@ -32,8 +36,8 @@ app.post('/question', function(req, res) {
 })
 
 app.post('/results', function(req, res) {
-    console.log("request body: " + req.body)
-    var message = JSON.parse(req).body
+    console.log("request body: " + req)
+    var message = req
     console.log("received message: " + message)
     var values = questionnaireMap.get(message)
     if (values == undefined) {
