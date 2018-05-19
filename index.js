@@ -34,6 +34,7 @@ app.get('/', function(req, res) {
 app.post('/question', function(req, res) {
     console.log("form post called")
     var tempAnswers = []
+    console.log("req.body:", req.body)
     req.body.options.forEach(option => {
         tempAnswers.push({name: option, value: 0})
     })
