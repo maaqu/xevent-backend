@@ -39,7 +39,7 @@ app.post('/question', function(req, res) {
         tempAnswers.push({name: option, value: 0})
     })
     questionnaireArray.push({question: req.body.message, answers: tempAnswers})
-
+    console.log("questionnaire array: " + questionnaireArray)
     axios({
         method:'put',
         url:'https://rr0c0nebe8.execute-api.eu-west-1.amazonaws.com/dev/webhook',
