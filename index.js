@@ -20,7 +20,6 @@ app.get('/', function(req, res) {
 });
 
 app.post('/question', function(req, res) {
-    res.send()
     console.log("form post called")
     axios({
         method:'put',
