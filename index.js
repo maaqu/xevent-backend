@@ -64,6 +64,9 @@ app.post('/results', function(req, res) {
     var answers = resultObject.answers
     var resultAnswer = searchAnswer(option, answers)
     resultAnswer.value = resultAnswer.value + 1
+    answers[resultAnswer] = resultAnswer
+    resultObject.answers = answers
+    questionnaireArray[resultObject] = resultObject
     /*
     var values = questionnaireMap.get(message)
     if (values == undefined) {
