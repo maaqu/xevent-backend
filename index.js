@@ -32,6 +32,7 @@ app.post('/question', function(req, res) {
 })
 
 app.post('/results', function(req, res) {
+    console.log(req)
     var message = req.body.message
     console.log("received message: " + message)
     var values = questionnaireMap.get(message)
