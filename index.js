@@ -63,4 +63,4 @@ app.get('/clearstate', function(req, res) {
     res.send(200)
 })
 
-app.listen(8080);
+app.listen($PORT);
