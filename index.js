@@ -103,7 +103,7 @@ app.get('/results', function(req, res) {
     res.send(JSON.stringify([...questionnaireArray]))
 })
 
-
+/*
 function caVotingAssistant() {
     var question = questionnaireArray[questionnaireArray.length-1]
     var randomIndex = parseInt(Math.random()*(question.answers.length-1))
@@ -117,6 +117,7 @@ var doStuff = function() {
     setTimeout(doStuff, 1500)
 }
 doStuff()
+*/
 /*
 app.get('/clearstate', function(req, res) {
     var questionnaireArray = []
