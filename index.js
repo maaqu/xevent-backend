@@ -3,7 +3,9 @@ var app = express();
 var path = require('path');
 var axios = require('axios')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
+app.use(bodyParser.json())
 app.use(cors())
 
 
