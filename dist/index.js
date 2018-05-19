@@ -25,9 +25,6 @@ questionnaireArray.push({ question: "We are choosing CDs for tonights karaoke. W
 questionnaireArray.push({ question: "The sauna and hot tub are heating up. Did you remember to bring your towel?",
     answers: [{ name: "Yes", value: 1 }, { name: "No", value: 1 }, { name: "Maybe", value: 1 }]
 });
-questionnaireArray.push({ question: "test",
-    answers: [{ name: "a", value: 0 }, { name: "b", value: 0 }, { name: "c", value: 0 }]
-});
 var questionnaireMap = new Map();
 questionnaireMap.set("We are choosing CDs for tonights karaoke. Which are you more into?", { "Rock": 30, "Dance": 4 });
 questionnaireMap.set("When are you planning to arrive", { "early": 5, "a bit later": 7 });
