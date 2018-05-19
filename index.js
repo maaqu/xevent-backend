@@ -104,21 +104,19 @@ app.get('/results', function(req, res) {
 })
 
 
-function searchQuestion(nameKey, myArray){
-    for (var i=0; i < myArray.length; i++) {
-        console.log(myArray[i].question)
-        if (myArray[i].question === nameKey) {
-            return myArray[i];
-        }
-    }
+function caVotingAssistant() {
+    var question = questionnaireArray[questionnaireArray.length-1]
+    var randomIndex = parseInt(Math.random()*(question.answers.length-1))
+    console.log(randomIndex)
+    console.log(question.answers[randomIndex])
+    question.answers[randomIndex].value = question.answers[randomIndex].value + 1
 }
-function searchAnswer(nameKey, myArray){
-    for (var i=0; i < myArray.length; i++) {
-        if (myArray[i].name === nameKey) {
-            return myArray[i];
-        }
-    }
+
+var doStuff = function() {
+    caVotingAssistant()
+    setTimeout(doStuff, 1500)
 }
+doStuff()
 /*
 app.get('/clearstate', function(req, res) {
     var questionnaireArray = []
