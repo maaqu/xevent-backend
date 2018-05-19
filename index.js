@@ -62,5 +62,5 @@ app.get('/clearstate', function(req, res) {
     questionnaireMap.set("The sauna and hot tub are heating up. Did you remember to bring your towel?", {"yes": 1, "maybe": 1, "no": 1});
     res.send(200)
 })
-
-app.listen($PORT);
+var port = process.env.PORT || 8080
+app.listen(port);
